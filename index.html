@@ -24,6 +24,9 @@
     </main>
     <div class="flexbox-container">
       <div>
+        <input type="text" name="searchTerms" id="searchTerms"><br>
+        <a href=# id="searchTermsClick" onclick="searchRepositories(event)">Search Repositories</a><br />
+
         <h3>Repositories</h3>
         <div id="results"></div>
       </div>
@@ -32,8 +35,39 @@
         <div id="details"></div>
       </div>
     </div>
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="script.js"></script> -->
     <script src="jquery-3.1.0.min.js"></script>
     <script src="handlebars.js"></script>
     <script src="index.js"></script>
+    <script id="results-template" type="text/x-handlebars-template">
+  <ul>
+   {{#each items}}
+     <li>
+       <h2><a href="{{html_url}}">{{name}}</a></h2>
+       {{>userDetails this.owner}}
+       <p>SHA: {{sha}}</p>
+       <p>Description: {{description}}</p>
+       <h1><a href=# id="{{commits_url}}" data-repository="{{name}}" data-owner="{{owner.login}}" onclick="showCommits(event, this)">SHOW COMMITS</a></h1>
+     </li>
+    {{/each}}
+  </ul>
+</script>
+<script id="user-details-partial" type="text/x-handlebars-template">
+   <p>Owner info ========================= </p>
+   <h2>Owner Login:<a href="{{url}}">{{login}}</a></h2>
+   <p>Login: {{url}}</p>
+   <img src="{{avatar_url}}" alt="Owner Avatar" height="100" width="100">
+   <p>=================================== </p>
+</script>
+<script id="details-template" type="text/x-handlebars-template">
+   <p>000000000000000000000000000000000000 </p>
+   {{#each this}}
+   <h2>SHA:{{sha}}</h2>
+   {{>userDetails this.author}}
+
+   <p>000000000000000000000000000000000000 </p>
+   {{/each}}
+</script>
   </body>
 </html>
